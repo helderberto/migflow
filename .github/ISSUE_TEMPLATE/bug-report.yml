@@ -1,0 +1,36 @@
+name: Bug Report
+description: Report an error in a playbook or the site
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Playbook content (wrong instructions, outdated info)
+        - Site (UI, search, copy button)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: playbook
+    attributes:
+      label: Affected playbook (if applicable)
+      placeholder: "e.g. Enzyme → React Testing Library"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      placeholder: Describe the issue clearly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen instead?
+    validations:
+      required: true

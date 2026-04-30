@@ -1,0 +1,52 @@
+name: Playbook Request
+description: Request a new migration playbook
+title: "[Request] From → To"
+labels: ["playbook-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a playbook you'd like to see. If you already have the content ready, use **Submit a Playbook** on the site instead.
+
+  - type: input
+    id: from
+    attributes:
+      label: Migrating from
+      placeholder: "e.g. Enzyme, Webpack, Moment.js"
+    validations:
+      required: true
+
+  - type: input
+    id: to
+    attributes:
+      label: Migrating to
+      placeholder: "e.g. React Testing Library, Vite, Day.js"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - frontend
+        - backend
+        - data
+        - language
+        - infra
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Why is this migration useful?
+      placeholder: Explain the motivation — pain points, deprecations, performance, ecosystem shift, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Useful references (optional)
+      placeholder: Official migration guides, blog posts, changelogs…
