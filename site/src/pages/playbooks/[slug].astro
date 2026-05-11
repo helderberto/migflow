@@ -82,7 +82,7 @@ const geminiContent = [
 
   <!-- Copy panel -->
   <section
-    class="mb-10 flex flex-col sm:flex-row sm:items-center gap-3 px-4 py-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40"
+    class="mb-4 flex flex-col sm:flex-row sm:items-center gap-3 px-4 py-3.5 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40"
     aria-label="Copy playbook"
   >
     <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium shrink-0">Copy for</p>
@@ -92,6 +92,20 @@ const geminiContent = [
       <CopyButton label="Raw markdown" content={playbook.body} />
     </div>
   </section>
+
+  <!-- Agent / API access -->
+  <p class="mb-10 text-xs text-zinc-500 dark:text-zinc-400">
+    For agents: fetch
+    <a
+      href={`/playbooks/${slug}.json`}
+      class="font-mono text-green-700 dark:text-green-400 hover:underline focus-ring rounded"
+    >/playbooks/{slug}.json</a>
+    or list all at
+    <a
+      href="/playbooks.json"
+      class="font-mono text-green-700 dark:text-green-400 hover:underline focus-ring rounded"
+    >/playbooks.json</a>.
+  </p>
 
   <!-- Playbook content -->
   <article
