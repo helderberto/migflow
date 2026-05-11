@@ -2,32 +2,51 @@
 
 > Agent-friendly and engineer-friendly playbooks for migrating legacy stacks to modern ones.
 
----
-
-## Purpose
-
-Designed to be consumed by AI systems (Claude, Gemini, GPT, agents) and engineers to execute reliable, repeatable code migrations.
-
-Instead of generic prompts, it provides:
-
-- Structured migration instructions
-- Explicit constraints and rules
-- Real before/after examples
-- Known pitfalls and edge cases
-
-The goal is to reduce ambiguity and enable deterministic AI-assisted migrations.
+**Live:** <https://migflow.dev>
 
 ---
 
-## Core idea
+## What it is
 
-Each migration is a playbook an AI can follow.
+A site and toolkit that helps AI agents (Claude, Cursor, Windsurf, Gemini, etc.) and engineers execute reliable, repeatable code migrations.
 
-A playbook is not documentation — it is:
+Each migration is a **playbook**: structured instructions, explicit constraints, real before/after examples, and a ready-to-use AI prompt — all designed to reduce ambiguity and enable deterministic AI-assisted migrations.
 
-- A set of instructions
-- A set of constraints
-- A transformation strategy
+---
+
+## How to use it
+
+### As an engineer
+
+Browse the site, find your migration, copy the playbook for your AI tool of choice (one-click).
+
+### As an AI agent
+
+Three programmatic channels — all returning the same content:
+
+| Channel | Endpoint | Use case |
+|---|---|---|
+| **MCP** | `/api/mcp` | Native integration for Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client |
+| **JSON API** | `/playbooks.json`, `/playbooks/<slug>.json` | Scripts, CI, non-MCP automation |
+| **llms.txt** | `/llms.txt` | RAG indexers, ChatGPT context loaders, llmstxt.org-aware tools |
+
+See <https://migflow.dev/agents> for connection snippets and the MCP tool catalog.
+
+---
+
+## Playbook anatomy
+
+Every playbook follows the same 9-section structure so AI agents can parse them deterministically:
+
+1. **Philosophy shift** — the conceptual mental model change
+2. **Setup** — install/uninstall commands
+3. **Core transformations** — before/after code examples
+4. **When NOT to migrate** — explicit anti-cases
+5. **Pitfalls** — known gotchas
+6. **Validation checklist** — yes/no verification questions
+7. **Codemod references** — automated tools where they exist
+8. **AI Prompt** — ready-to-use prompt for executing the migration
+9. **References** — authoritative documentation
 
 ---
 
@@ -35,38 +54,37 @@ A playbook is not documentation — it is:
 
 | Category | Examples |
 |----------|---------|
-| `frontend` | Enzyme → RTL, Cypress → Playwright, CRA → Vite |
-| `backend` | Express → Fastify, REST → tRPC |
+| `frontend` | Enzyme → RTL, CRA → Vite, Cypress → Playwright, Class → Functional, Redux → RTK, Pretender → MSW |
+| `backend` | Express → Fastify |
 | `data` | Moment.js → date-fns, Lodash → native |
-| `language` | JavaScript → TypeScript, Flow → TypeScript |
-| `infra` | Webpack → Vite, Jest → Vitest |
+| `language` | JavaScript → TypeScript, Flow → TypeScript, PropTypes → TypeScript, Callbacks → async/await |
+| `infra` | Webpack → Vite, Jest → Vitest, CommonJS → ESM |
 
 ---
 
-## Playbook structure
+## Repository structure
 
 ```
-/playbooks/
-  /frontend/
-    /enzyme-to-react-testing-library/
-      ├── playbook.md        # structured instructions for AI
-      ├── prompts.md         # reusable prompts
-      ├── before/            # input examples
-      ├── after/             # expected output
-      ├── pitfalls.md        # edge cases and known issues
-      ├── skills.md          # concepts required for correct migration
-      └── references.md      # contextual documentation
+.
+├── site/                          # Astro site (deployed)
+│   └── src/
+│       ├── content/
+│       │   └── playbooks/         # all playbooks as flat .md files
+│       ├── pages/
+│       │   ├── index.astro        # listing + search
+│       │   ├── agents.astro       # MCP / JSON / llms.txt docs
+│       │   ├── submit.astro       # contribute via GitHub PR
+│       │   ├── playbooks/[slug].astro       # detail page
+│       │   ├── playbooks/[slug].json.ts     # JSON endpoint
+│       │   ├── playbooks.json.ts            # list endpoint
+│       │   ├── llms.txt.ts                  # llms.txt endpoint
+│       │   └── api/[transport].ts           # MCP server
+│       └── ...
+├── .github/                       # issue / PR templates, CI workflow
+├── AGENTS.md                      # project conventions (loaded by AI tools)
+├── CLAUDE.md                      # → AGENTS.md
+└── README.md
 ```
-
----
-
-## How AIs should use this
-
-1. Read `playbook.md` for rules and constraints
-2. Use `prompts.md` as a base for execution
-3. Validate transformations against `after/` examples
-4. Check `pitfalls.md` to avoid common mistakes
-5. Use `skills.md` to understand intent (not just syntax)
 
 ---
 
@@ -91,33 +109,40 @@ This is a machine-oriented migration system.
 
 ## Contributing
 
-Contributions must follow the structure strictly to remain useful for AI systems.
+The fastest path is the [**Submit** page](https://migflow.dev/submit): it scaffolds a GitHub PR with the correct file structure.
 
-### Requirements
+### Manual contribution
 
-- Clear migration (X → Y)
-- Deterministic transformation rules
-- Real before/after examples
-- Explicit constraints
-- Documented pitfalls
+1. Create `site/src/content/playbooks/<from>-to-<to>.md`
+2. Add frontmatter (see existing playbooks)
+3. Follow the 9-section structure
+4. Place under the correct `category` (`frontend`, `backend`, `data`, `language`, `infra`)
+5. Open a PR
 
 ### PR checklist
 
-- [ ] Placed in the correct category folder (`frontend/`, `backend/`, `data/`, `language/`, `infra/`)
-- [ ] Includes `playbook.md` with clear rules
-- [ ] Includes before/after examples
-- [ ] Includes prompts
-- [ ] Documents pitfalls
-- [ ] Follows folder structure
+- [ ] Clear migration (X → Y)
+- [ ] Correct category
+- [ ] All 9 sections present
+- [ ] Real before/after examples
+- [ ] Validation checklist with concrete items
+- [ ] AI Prompt that runs end-to-end
 
 ---
 
-## Vision
+## Local development
 
-As AI becomes part of development workflows, migrations should become faster, safer, and repeatable. migflow standardizes that process.
+```bash
+cd site
+npm install
+npm run dev          # http://localhost:4321
+npm run build        # build for production
+```
+
+The site uses Astro with the Vercel adapter (hybrid mode). All pages are static except `/api/*` which runs as a serverless function (MCP server).
 
 ---
 
 ## License
 
-[MIT](LICENSE) - Helder Burato Berto
+[MIT](LICENSE) — Helder Burato Berto
