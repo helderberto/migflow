@@ -110,6 +110,13 @@ expect(screen.getByText('Count: 1')).toBeInTheDocument();
 expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
 ```
 
+## When NOT to migrate
+
+- **Test suite is snapshot-heavy** — RTL pairs better with behavior assertions; porting snapshots adds little value.
+- **Component under test uses class-based patterns with `instance()`/`state()` access** — refactor the component first (see `class-to-functional-components`), then migrate the tests.
+- **React < 16.8** — RTL requires hooks support and modern React.
+- **E2E flows** — Enzyme isn't designed for them; migrate to Playwright/Cypress instead of RTL.
+
 ## Pitfalls
 
 - **`shallow` has no equivalent** — RTL always renders the full tree. Redesign shallow tests to focus on behavior.
@@ -118,6 +125,40 @@ expect(screen.getByRole('button', { name: /save/i })).toBeInTheDocument();
 - **`instance()` and `setState()` are gone** — refactor tests to assert DOM output instead.
 - **Multiple elements** — `getBy*` throws if multiple match. Use `getAllBy*` or be more specific.
 - **Query priority matters** — `getByRole` is most resilient to refactors. `getByTestId` is fragile.
+
+## Validation checklist
+
+- [ ] No `shallow`, `mount`, or `wrapper.find(...)` calls remain
+- [ ] No `.instance()`, `.state()`, `.setState()`, or `.props()` usage
+- [ ] `simulate` replaced by `userEvent` (preferred) or `fireEvent`
+- [ ] Query priority respected: `getByRole` > `getByLabelText` > `getByText` > `getByTestId`
+- [ ] Async assertions use `findBy*` or `waitFor` — no `wrapper.update()`
+- [ ] All tests pass against the **unchanged** component
+- [ ] `enzyme` and `enzyme-adapter-*` removed from `package.json`
+
+## Codemod references
+
+- [enzyme-to-testing-library-codemod](https://github.com/reedyrm/enzyme-to-testing-library-codemod) — partial coverage; review every transform manually
+- AI-assisted migration is generally more reliable than codemods because the behavior-vs-implementation gap requires judgment per test
+
+## AI Prompt
+
+```
+You are migrating a test file from Enzyme to React Testing Library.
+
+Rules:
+1. Replace `shallow` and `mount` with `render` from @testing-library/react.
+2. Replace `wrapper.find(...)` with semantic queries in this priority:
+   getByRole > getByLabelText > getByText > getByPlaceholderText > getByTestId.
+3. Replace `simulate('click')` / `simulate('change', ...)` with userEvent:
+   `await user.click(...)`, `await user.type(...)`.
+4. Replace `wrapper.update()` and manual waits with `await findBy*` or `await waitFor(...)`.
+5. Do NOT port tests that assert on state, props, or instance methods — rewrite them to assert on rendered DOM output.
+6. Drop pure shallow-rendering structural tests; replace with behavior-focused assertions.
+7. Do not modify the component under test — only the test file.
+
+Migrate the following Enzyme test file:
+```
 
 ## Query cheatsheet
 
