@@ -120,7 +120,9 @@ import { CATEGORIES } from "../lib/playbooks";
         aria-describedby="content-hint"
       ></textarea>
       <p id="content-hint" class="text-xs text-zinc-500 dark:text-zinc-400">
-        Follow the structure: Philosophy → Setup → Migration → Pitfalls → AI Prompt.
+        The template above is the required structure. See an existing
+        <a href="/" class="text-green-700 dark:text-green-400 hover:underline">playbook</a>
+        for a complete example.
       </p>
     </div>
 
@@ -152,38 +154,46 @@ import { CATEGORIES } from "../lib/playbooks";
 
   const TEMPLATE = `## Philosophy shift
 
-<!-- Why this migration? What changes conceptually? -->
+<!-- What changes conceptually? What's the core mental model shift? -->
 
 ## Setup
 
 \`\`\`bash
-# Remove old package
 npm uninstall old-package
-
-# Install new package
 npm install new-package
 \`\`\`
 
-## Migration
+## Core transformations
 
-<!-- Step-by-step guide with before/after examples -->
-
-### Before
+### Example 1
 
 \`\`\`js
-// old code
+// old
 \`\`\`
-
-### After
 
 \`\`\`js
-// new code
+// new
 \`\`\`
 
-## Common pitfalls
+## When NOT to migrate
+
+- Case where the migration is more cost than benefit.
+- Case where the new tech doesn't support a feature the old one does.
+
+## Pitfalls
 
 - **Pitfall 1:** description
 - **Pitfall 2:** description
+
+## Validation checklist
+
+- [ ] No legacy API calls remain
+- [ ] Tests pass on the migrated code
+- [ ] Bundle size / performance verified
+
+## Codemod references
+
+- [name](url) — coverage notes, or note that no mature codemod exists.
 
 ## AI Prompt
 
@@ -194,8 +204,12 @@ Rules:
 1.
 2.
 
-Apply these rules to the following file:
+Migrate the following file:
 \`\`\`
+
+## References
+
+- [Official docs](url)
 `;
 
   const contentEl = document.getElementById("content") as HTMLTextAreaElement;
