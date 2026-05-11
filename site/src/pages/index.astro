@@ -22,7 +22,7 @@ const categories = ["all", ...CATEGORIES] as const;
       Structured playbooks for migrating legacy stacks to modern ones.
       Copy for Claude, Gemini, or any AI tool — one click.
     </p>
-    <p class="mt-4 text-sm text-zinc-400 dark:text-zinc-600">
+    <p class="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
       {playbooks.length} {playbooks.length === 1 ? "playbook" : "playbooks"} available
     </p>
   </section>
@@ -31,7 +31,7 @@ const categories = ["all", ...CATEGORIES] as const;
   <div class="relative mb-4">
     <label for="search" class="sr-only">Search migrations</label>
     <svg
-      class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-600 pointer-events-none"
+      class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 dark:text-zinc-400 pointer-events-none"
       aria-hidden="true"
       fill="none"
       stroke="currentColor"
@@ -68,7 +68,7 @@ const categories = ["all", ...CATEGORIES] as const;
   <!-- Results feedback -->
   <p
     id="results-count"
-    class="text-xs text-zinc-400 dark:text-zinc-600 h-6 flex items-center mb-4"
+    class="text-xs text-zinc-500 dark:text-zinc-400 h-6 flex items-center mb-4"
     aria-live="polite"
     aria-atomic="true"
   >
@@ -94,7 +94,7 @@ const categories = ["all", ...CATEGORIES] as const;
                 <span class="text-zinc-300 dark:text-zinc-600 mx-1.5 font-normal">→</span>
                 {p.data.to}
               </p>
-              <p class="text-zinc-400 dark:text-zinc-500 text-sm mt-0.5 truncate">
+              <p class="text-zinc-500 dark:text-zinc-400 text-sm mt-0.5 truncate">
                 {p.data.description}
               </p>
             </div>
@@ -116,7 +116,7 @@ const categories = ["all", ...CATEGORIES] as const;
 
   <p
     id="no-results"
-    class="hidden text-zinc-400 dark:text-zinc-500 text-sm text-center py-16"
+    class="hidden text-zinc-500 dark:text-zinc-400 text-sm text-center py-16"
     aria-live="polite"
   >
     No playbooks match your search.

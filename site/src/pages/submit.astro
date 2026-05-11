@@ -12,7 +12,7 @@ import { CATEGORIES } from "../lib/playbooks";
       Fill in the form below. On submit, GitHub opens with the file pre-filled so you can review and open a pull request.
     </p>
 
-    <ol class="flex items-center gap-2 mt-5 text-xs text-zinc-400 dark:text-zinc-600" aria-label="Submission steps">
+    <ol class="flex items-center gap-2 mt-5 text-xs text-zinc-500 dark:text-zinc-400" aria-label="Submission steps">
       <li class="flex items-center gap-1.5">
         <span class="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 flex items-center justify-center font-semibold text-[10px]">1</span>
         Fill the form
@@ -78,7 +78,7 @@ import { CATEGORIES } from "../lib/playbooks";
     <!-- Tags -->
     <div class="flex flex-col gap-1.5">
       <label for="tags" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-        Tags <span class="text-zinc-400 dark:text-zinc-600 font-normal">(comma-separated)</span>
+        Tags <span class="text-zinc-500 dark:text-zinc-400 font-normal">(comma-separated)</span>
       </label>
       <input
         id="tags"
@@ -109,7 +109,7 @@ import { CATEGORIES } from "../lib/playbooks";
     <!-- Content -->
     <div class="flex flex-col gap-1.5">
       <label for="content" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-        Playbook content <span class="text-zinc-400 dark:text-zinc-600 font-normal">(Markdown)</span>
+        Playbook content <span class="text-zinc-500 dark:text-zinc-400 font-normal">(Markdown)</span>
         <span class="text-red-500" aria-hidden="true">*</span>
       </label>
       <textarea
@@ -119,7 +119,7 @@ import { CATEGORIES } from "../lib/playbooks";
         class="input-base font-mono text-xs leading-relaxed resize-y"
         aria-describedby="content-hint"
       ></textarea>
-      <p id="content-hint" class="text-xs text-zinc-400 dark:text-zinc-600">
+      <p id="content-hint" class="text-xs text-zinc-500 dark:text-zinc-400">
         Follow the structure: Philosophy → Setup → Migration → Pitfalls → AI Prompt.
       </p>
     </div>
@@ -129,12 +129,12 @@ import { CATEGORIES } from "../lib/playbooks";
 
     <!-- Submit -->
     <div class="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800">
-      <a href="/" class="text-sm text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors focus-ring rounded">
+      <a href="/" class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors focus-ring rounded">
         ← Back
       </a>
       <button
         type="submit"
-        class="flex items-center gap-2 bg-green-600 hover:bg-green-500 active:bg-green-700 text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors focus-ring"
+        class="btn-primary focus-ring"
       >
         Review &amp; open PR on GitHub
         <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -145,11 +145,6 @@ import { CATEGORIES } from "../lib/playbooks";
   </form>
 </Layout>
 
-<style>
-  .input-base {
-    @apply w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-4 py-3 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-sm;
-  }
-</style>
 
 <script>
   const REPO = "helderberto/migflow";
