@@ -1,0 +1,316 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Agent-friendly playbooks for migrating legacy stacks to modern ones. Copy for Claude, Gemini, or any AI tool in one click.",
+} = Astro.props;
+
+const GITHUB_URL = "https://github.com/helderberto/migflow";
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title} · MigFlow</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const isDark = stored === "dark" || (stored !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", isDark);
+      })();
+    </script>
+  </head>
+
+  <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen font-sans antialiased transition-colors duration-200 flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-green-500 focus:text-white focus:rounded-md focus:text-sm focus:font-medium"
+    >
+      Skip to content
+    </a>
+
+    <header class="sticky top-0 z-40 border-b border-zinc-100 dark:border-zinc-800/80 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm">
+      <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+
+        <!-- Animated logo: "Migration Flow" → "MigFlow" -->
+        <a
+          href="/"
+          class="logo-link font-mono font-bold text-base text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition-colors focus-ring rounded flex items-center overflow-hidden"
+          aria-label="MigFlow home"
+          title="Migration Flow"
+        >
+          <span>Mig</span>
+          <span id="logo-ration" class="logo-collapse" aria-hidden="true">ration</span>
+          <span class="text-zinc-400 dark:text-zinc-600 logo-space" aria-hidden="true">&nbsp;</span>
+          <span id="logo-f">F</span>
+          <span>low</span>
+        </a>
+
+        <div class="flex items-center gap-3">
+          <button
+            id="theme-toggle"
+            aria-label="Toggle color theme"
+            class="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-200 transition-all focus-ring"
+          >
+            <span id="theme-icon" aria-hidden="true">◐</span>
+            <span id="theme-label">system</span>
+          </button>
+
+          <a
+            href="/submit"
+            class="text-xs px-2.5 py-1.5 rounded-md border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 transition-all focus-ring"
+          >
+            Submit
+          </a>
+
+          <a
+            href={GITHUB_URL}
+            class="text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors focus-ring rounded"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub (opens in new tab)"
+          >
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="flex-1 max-w-4xl w-full mx-auto px-6 py-12">
+      <slot />
+    </main>
+
+    <footer class="border-t border-zinc-100 dark:border-zinc-800 mt-16">
+      <div class="max-w-4xl mx-auto px-6 py-8 flex items-center justify-between text-xs text-zinc-400 dark:text-zinc-600">
+        <span>MIT License · Helder Burato Berto</span>
+        <span>Built for AI-assisted migrations</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950;
+  }
+
+  .logo-collapse {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 60px;
+    opacity: 1;
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+  }
+
+  .logo-collapse.collapsed {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  .logo-link:hover .logo-collapse.collapsed,
+  .logo-link:focus-visible .logo-collapse.collapsed {
+    max-width: 60px;
+    opacity: 1;
+  }
+
+  .logo-space {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 6px;
+    opacity: 1;
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+  }
+
+  .logo-space.collapsed {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  .logo-link:hover .logo-space.collapsed,
+  .logo-link:focus-visible .logo-space.collapsed {
+    max-width: 6px;
+    opacity: 1;
+  }
+
+  /* Code block wrapper */
+  .code-block-wrapper {
+    margin: 1.25rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid #e4e4e7;
+  }
+
+  html.dark .code-block-wrapper {
+    border-color: #3f3f46;
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 0.75rem;
+    background-color: #f4f4f5;
+    border-bottom: 1px solid #e4e4e7;
+  }
+
+  html.dark .code-block-header {
+    background-color: #1c1c1f;
+    border-color: #3f3f46;
+  }
+
+  .code-block-lang {
+    font-size: 0.68rem;
+    font-family: ui-monospace, monospace;
+    font-weight: 500;
+    color: #a1a1aa;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+
+  .code-block-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.68rem;
+    font-family: inherit;
+    color: #c4c4c8;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.2rem 0.5rem;
+    margin-right: -0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.12s, color 0.12s;
+  }
+
+  .code-block-copy:hover {
+    background-color: #e8e8ea;
+    color: #52525b;
+  }
+
+  html.dark .code-block-copy:hover {
+    background-color: #2d2d31;
+    color: #d4d4d8;
+  }
+
+  .code-block-wrapper pre.astro-code {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  /* Reset inline-code styles that leak into Shiki blocks */
+  .prose pre code {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: inherit !important;
+    color: inherit !important;
+  }
+
+  /* Hide Shiki's trailing empty line */
+  .astro-code .line:last-child:empty {
+    display: none;
+  }
+
+  /* Copy success states */
+  .copy-btn.is-copied[data-variant="primary"] {
+    background-color: #15803d;
+  }
+  .copy-btn.is-copied[data-variant="default"] {
+    background-color: #f0fdf4;
+    border-color: #86efac;
+    color: #16a34a;
+  }
+  html.dark .copy-btn.is-copied[data-variant="default"] {
+    background-color: #052e16;
+    border-color: #166534;
+    color: #4ade80;
+  }
+
+  .code-block-copy.is-copied {
+    color: #16a34a !important;
+  }
+  html.dark .code-block-copy.is-copied {
+    color: #4ade80 !important;
+  }
+
+  /* Shiki dual-theme: activate light tokens by default, dark tokens in dark mode */
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+  }
+
+  html.dark .astro-code,
+  html.dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+</style>
+
+<script>
+  // Logo animation: "Migration Flow" → "MigFlow" (runs once per session)
+  const ration = document.getElementById("logo-ration");
+  const space = document.querySelector<HTMLElement>(".logo-space");
+
+  if (!sessionStorage.getItem("logo-animated")) {
+    setTimeout(() => {
+      ration?.classList.add("collapsed");
+      space?.classList.add("collapsed");
+      sessionStorage.setItem("logo-animated", "1");
+    }, 1200);
+  } else {
+    ration?.classList.add("collapsed");
+    space?.classList.add("collapsed");
+  }
+
+  // Theme toggle
+  const THEMES = ["system", "light", "dark"] as const;
+  type Theme = (typeof THEMES)[number];
+  const ICONS: Record<Theme, string> = { system: "◐", light: "○", dark: "●" };
+
+  const btn = document.getElementById("theme-toggle") as HTMLButtonElement;
+  const themeLabel = document.getElementById("theme-label") as HTMLSpanElement;
+  const themeIcon = document.getElementById("theme-icon") as HTMLSpanElement;
+
+  function getStored(): Theme {
+    return (localStorage.getItem("theme") as Theme) ?? "system";
+  }
+
+  function applyTheme(theme: Theme) {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = theme === "dark" || (theme === "system" && prefersDark);
+    document.documentElement.classList.toggle("dark", isDark);
+    themeLabel.textContent = theme;
+    themeIcon.textContent = ICONS[theme];
+    localStorage.setItem("theme", theme);
+  }
+
+  applyTheme(getStored());
+
+  btn.addEventListener("click", () => {
+    const current = getStored();
+    const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+    applyTheme(next);
+  });
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (getStored() === "system") applyTheme("system");
+  });
+</script>
