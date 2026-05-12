@@ -6,7 +6,7 @@ export const GET: APIRoute = async () => {
   const playbooks = (await getCollection("playbooks")).filter((p) => !p.data.draft);
 
   const lines: string[] = [
-    "# migflow",
+    "# MigFlow",
     "",
     "> Agent-friendly migration playbooks for legacy → modern stacks. Each playbook is structured for AI execution: philosophy, setup, before/after transformations, pitfalls, validation checklist, and a ready-to-use prompt.",
     "",

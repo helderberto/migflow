@@ -1,4 +1,4 @@
-# migflow
+# MigFlow
 
 > Agent-friendly and engineer-friendly playbooks for migrating legacy stacks to modern ones.
 
@@ -139,7 +139,7 @@ npm run dev          # http://localhost:4321
 npm run build        # build for production
 ```
 
-The site uses Astro with the Vercel adapter (hybrid mode). All pages are static except `/api/*` which runs as a serverless function (MCP server).
+The site uses Astro 5 with the Vercel adapter. All pages are prerendered as static HTML except `/api/*`, which runs as a serverless function (the MCP server).
 
 ---
 
