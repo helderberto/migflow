@@ -1,0 +1,79 @@
+---
+interface Props {
+  label: string;
+  content: string;
+  variant?: 'default' | 'primary';
+}
+
+const { label, content, variant = 'default' } = Astro.props;
+
+const base =
+  'copy-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all focus-ring cursor-pointer';
+
+const styles =
+  variant === 'primary'
+    ? 'bg-green-700 hover:bg-green-600 active:bg-green-800 text-white shadow-sm'
+    : 'bg-white dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 shadow-sm';
+---
+
+<button
+  class={`${base} ${styles}`}
+  data-content={content}
+  data-variant={variant}
+  aria-label={`Copy playbook for ${label}`}
+>
+  <svg
+    class="copy-icon w-3.5 h-3.5 flex-shrink-0"
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+  >
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+  </svg>
+  <svg
+    class="check-icon w-3.5 h-3.5 flex-shrink-0 hidden text-green-500"
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    viewBox="0 0 24 24"
+  >
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </svg>
+  <span class="btn-label">{label}</span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+    const copyIcon = btn.querySelector<SVGElement>('.copy-icon');
+    const checkIcon = btn.querySelector<SVGElement>('.check-icon');
+    const labelEl = btn.querySelector<HTMLSpanElement>('.btn-label');
+    const originalLabel = labelEl?.textContent ?? '';
+
+    btn.addEventListener('click', async () => {
+      if (btn.classList.contains('is-copied')) return;
+      try {
+        await navigator.clipboard.writeText(btn.dataset.content ?? '');
+
+        copyIcon?.classList.add('hidden');
+        checkIcon?.classList.remove('hidden');
+        if (labelEl) labelEl.textContent = 'Copied!';
+        btn.setAttribute('aria-label', 'Copied!');
+        btn.classList.add('is-copied');
+
+        setTimeout(() => {
+          copyIcon?.classList.remove('hidden');
+          checkIcon?.classList.add('hidden');
+          if (labelEl) labelEl.textContent = originalLabel;
+          btn.setAttribute('aria-label', `Copy playbook for ${originalLabel}`);
+          btn.classList.remove('is-copied');
+        }, 1500);
+      } catch {
+        // clipboard not available
+      }
+    });
+  });
+</script>

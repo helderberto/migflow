@@ -1,5 +1,7 @@
 # MigFlow
 
+[![CI](https://github.com/helderberto/migflow/actions/workflows/ci.yml/badge.svg)](https://github.com/helderberto/migflow/actions/workflows/ci.yml)
+
 > Agent-friendly and engineer-friendly playbooks for migrating legacy stacks to modern ones.
 
 **Live:** <https://migflow.dev>
@@ -66,20 +68,19 @@ Every playbook follows the same 9-section structure so AI agents can parse them 
 
 ```
 .
-├── site/                          # Astro site (deployed)
-│   └── src/
-│       ├── content/
-│       │   └── playbooks/         # all playbooks as flat .md files
-│       ├── pages/
-│       │   ├── index.astro        # listing + search
-│       │   ├── agents.astro       # MCP / JSON / llms.txt docs
-│       │   ├── submit.astro       # contribute via GitHub PR
-│       │   ├── playbooks/[slug].astro       # detail page
-│       │   ├── playbooks/[slug].json.ts     # JSON endpoint
-│       │   ├── playbooks.json.ts            # list endpoint
-│       │   ├── llms.txt.ts                  # llms.txt endpoint
-│       │   └── api/[transport].ts           # MCP server
-│       └── ...
+├── src/
+│   ├── content/
+│   │   └── playbooks/             # all playbooks as flat .md files
+│   ├── pages/
+│   │   ├── index.astro            # listing + search
+│   │   ├── agents.astro           # MCP / JSON / llms.txt docs
+│   │   ├── submit.astro           # contribute via GitHub PR
+│   │   ├── playbooks/[slug].astro       # detail page
+│   │   ├── playbooks/[slug].json.ts     # JSON endpoint
+│   │   ├── playbooks.json.ts            # list endpoint
+│   │   ├── llms.txt.ts                  # llms.txt endpoint
+│   │   └── api/[transport].ts           # MCP server
+│   └── ...
 ├── .github/                       # issue / PR templates, CI workflow
 ├── AGENTS.md                      # project conventions (loaded by AI tools)
 ├── CLAUDE.md                      # → AGENTS.md
@@ -113,7 +114,7 @@ The fastest path is the [**Submit** page](https://migflow.dev/submit): it scaffo
 
 ### Manual contribution
 
-1. Create `site/src/content/playbooks/<from>-to-<to>.md`
+1. Create `src/content/playbooks/<from>-to-<to>.md`
 2. Add frontmatter (see existing playbooks)
 3. Follow the 9-section structure
 4. Place under the correct `category` (`frontend`, `backend`, `data`, `language`, `infra`)

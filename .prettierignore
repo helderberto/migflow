@@ -1,0 +1,7 @@
+node_modules
+dist
+.vercel
+.astro
+coverage
+package-lock.json
+src/content/playbooks

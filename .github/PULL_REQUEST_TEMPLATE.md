@@ -9,7 +9,7 @@
 ## Checklist
 
 - [ ] Frontmatter is complete (`from`, `to`, `category`, `tags`, `description`, `draft: false`)
-- [ ] File is at `site/src/content/playbooks/{from}-to-{to}.md` (kebab-case)
+- [ ] File is at `src/content/playbooks/{from}-to-{to}.md` (kebab-case)
 - [ ] Includes a philosophy/motivation section
 - [ ] Includes setup commands (install/uninstall)
 - [ ] Includes before/after code examples

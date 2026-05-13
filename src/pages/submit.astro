@@ -1,0 +1,279 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { CATEGORIES } from '@/lib';
+---
+
+<Layout
+  title="Submit a Playbook"
+  description="Submit a migration playbook to MigFlow. Your submission opens a pull request on GitHub for review."
+>
+  <section class="mb-10" aria-label="Introduction">
+    <h1 class="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+      Submit a playbook
+    </h1>
+    <p class="text-zinc-500 dark:text-zinc-400 max-w-md leading-relaxed">
+      Fill in the form below. On submit, GitHub opens with the file pre-filled so you can review and
+      open a pull request.
+    </p>
+
+    <ol
+      class="flex items-center gap-2 mt-5 text-xs text-zinc-500 dark:text-zinc-400"
+      aria-label="Submission steps"
+    >
+      <li class="flex items-center gap-1.5">
+        <span
+          class="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 flex items-center justify-center font-semibold text-[10px]"
+          >1</span
+        >
+        Fill the form
+      </li>
+      <li aria-hidden="true" class="text-zinc-300 dark:text-zinc-700">→</li>
+      <li class="flex items-center gap-1.5">
+        <span
+          class="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 flex items-center justify-center font-semibold text-[10px]"
+          >2</span
+        >
+        Review on GitHub
+      </li>
+      <li aria-hidden="true" class="text-zinc-300 dark:text-zinc-700">→</li>
+      <li class="flex items-center gap-1.5">
+        <span
+          class="w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 flex items-center justify-center font-semibold text-[10px]"
+          >3</span
+        >
+        Open pull request
+      </li>
+    </ol>
+  </section>
+
+  <form id="submit-form" novalidate class="flex flex-col gap-6">
+    <!-- From / To -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-1.5">
+        <label for="from" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Migrating from <span class="text-red-500" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="from"
+          type="text"
+          required
+          placeholder="e.g. Enzyme"
+          class="input-base"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label for="to" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Migrating to <span class="text-red-500" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="to"
+          type="text"
+          required
+          placeholder="e.g. React Testing Library"
+          class="input-base"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+    </div>
+
+    <!-- Category / Difficulty -->
+    <div class="flex flex-col gap-1.5">
+      <label for="category" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        Category <span class="text-red-500" aria-hidden="true">*</span>
+      </label>
+      <select id="category" required class="input-base">
+        <option value="" disabled selected>Select…</option>
+        {CATEGORIES.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+
+    <!-- Tags -->
+    <div class="flex flex-col gap-1.5">
+      <label for="tags" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        Tags <span class="text-zinc-500 dark:text-zinc-400 font-normal">(comma-separated)</span>
+      </label>
+      <input
+        id="tags"
+        type="text"
+        placeholder="e.g. testing, react, jest"
+        class="input-base"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="flex flex-col gap-1.5">
+      <label for="description" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        Short description <span class="text-red-500" aria-hidden="true">*</span>
+      </label>
+      <input
+        id="description"
+        type="text"
+        required
+        maxlength="160"
+        placeholder="One sentence describing the migration and its goal."
+        class="input-base"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col gap-1.5">
+      <label for="content" class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        Playbook content <span class="text-zinc-500 dark:text-zinc-400 font-normal">(Markdown)</span
+        >
+        <span class="text-red-500" aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id="content"
+        required
+        rows="24"
+        class="input-base font-mono text-xs leading-relaxed resize-y"
+        aria-describedby="content-hint"></textarea>
+      <p id="content-hint" class="text-xs text-zinc-500 dark:text-zinc-400">
+        The template above is the required structure. See an existing
+        <a href="/" class="text-green-700 dark:text-green-400 hover:underline">playbook</a>
+        for a complete example.
+      </p>
+    </div>
+
+    <!-- Error -->
+    <p id="form-error" class="hidden text-sm text-red-600 dark:text-red-400" role="alert"></p>
+
+    <!-- Submit -->
+    <div
+      class="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800"
+    >
+      <a
+        href="/"
+        class="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors focus-ring rounded"
+      >
+        ← Back
+      </a>
+      <button type="submit" class="btn-primary focus-ring">
+        Review &amp; open PR on GitHub
+        <svg
+          class="w-4 h-4"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+            points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </button>
+    </div>
+  </form>
+</Layout>
+
+<script>
+  import { buildGitHubNewFileUrl, buildPlaybookFile, buildSlug, validateSubmission } from '@/lib';
+
+  const REPO = 'helderberto/migflow';
+  const BRANCH = 'main';
+
+  const TEMPLATE = `## Philosophy shift
+
+<!-- What changes conceptually? What's the core mental model shift? -->
+
+## Setup
+
+\`\`\`bash
+npm uninstall old-package
+npm install new-package
+\`\`\`
+
+## Core transformations
+
+### Example 1
+
+\`\`\`js
+// old
+\`\`\`
+
+\`\`\`js
+// new
+\`\`\`
+
+## When NOT to migrate
+
+- Case where the migration is more cost than benefit.
+- Case where the new tech doesn't support a feature the old one does.
+
+## Pitfalls
+
+- **Pitfall 1:** description
+- **Pitfall 2:** description
+
+## Validation checklist
+
+- [ ] No legacy API calls remain
+- [ ] Tests pass on the migrated code
+- [ ] Bundle size / performance verified
+
+## Codemod references
+
+- [name](url) — coverage notes, or note that no mature codemod exists.
+
+## AI Prompt
+
+\`\`\`
+You are migrating code from X to Y.
+
+Rules:
+1.
+2.
+
+Migrate the following file:
+\`\`\`
+
+## References
+
+- [Official docs](url)
+`;
+
+  const contentEl = document.getElementById('content') as HTMLTextAreaElement;
+  if (contentEl && !contentEl.value) contentEl.value = TEMPLATE;
+
+  const form = document.getElementById('submit-form') as HTMLFormElement;
+  const errorEl = document.getElementById('form-error') as HTMLParagraphElement;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const result = validateSubmission({
+      from: (document.getElementById('from') as HTMLInputElement).value,
+      to: (document.getElementById('to') as HTMLInputElement).value,
+      category: (document.getElementById('category') as HTMLSelectElement).value,
+      tagsRaw: (document.getElementById('tags') as HTMLInputElement).value,
+      description: (document.getElementById('description') as HTMLInputElement).value,
+      body: contentEl.value,
+    });
+
+    if (!result.ok) {
+      errorEl.textContent = result.error;
+      errorEl.classList.remove('hidden');
+      errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    errorEl.classList.add('hidden');
+
+    const url = buildGitHubNewFileUrl({
+      repo: REPO,
+      branch: BRANCH,
+      slug: buildSlug(result.value.from, result.value.to),
+      from: result.value.from,
+      to: result.value.to,
+      fileContent: buildPlaybookFile(result.value),
+    });
+
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+</script>

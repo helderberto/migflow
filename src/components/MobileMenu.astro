@@ -1,0 +1,116 @@
+---
+interface Props {
+  githubUrl: string;
+}
+
+const { githubUrl } = Astro.props;
+---
+
+<button
+  id="mobile-menu-toggle"
+  type="button"
+  class="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-zinc-200 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-all focus-ring"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+>
+  <svg
+    id="mobile-menu-icon-open"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="w-5 h-5"
+    aria-hidden="true"
+  >
+    <line x1="4" y1="7" x2="20" y2="7"></line>
+    <line x1="4" y1="12" x2="20" y2="12"></line>
+    <line x1="4" y1="17" x2="20" y2="17"></line>
+  </svg>
+  <svg
+    id="mobile-menu-icon-close"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="w-5 h-5 hidden"
+    aria-hidden="true"
+  >
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+    <line x1="6" y1="18" x2="18" y2="6"></line>
+  </svg>
+</button>
+
+<div
+  id="mobile-menu"
+  class="sm:hidden hidden absolute left-0 right-0 top-full border-t border-zinc-100 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-sm shadow-sm"
+>
+  <nav class="px-6 py-3 flex flex-col gap-1" aria-label="Mobile">
+    <a
+      href="/agents"
+      class="mobile-menu-link text-sm px-3 py-2 rounded-md text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors focus-ring"
+    >
+      Agents
+    </a>
+    <a
+      href="/submit"
+      class="mobile-menu-link text-sm px-3 py-2 rounded-md border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 transition-colors focus-ring"
+    >
+      Submit
+    </a>
+    <a
+      href={githubUrl}
+      class="mobile-menu-link text-sm px-3 py-2 rounded-md text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors focus-ring"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="View source on GitHub (opens in new tab)"
+    >
+      GitHub ↗
+    </a>
+  </nav>
+</div>
+
+<script>
+  import { isOutsideMenuClick, mobileMenuView } from '@/lib';
+
+  const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+  const panel = document.getElementById('mobile-menu') as HTMLDivElement | null;
+  const iconOpen = document.getElementById('mobile-menu-icon-open') as SVGElement | null;
+  const iconClose = document.getElementById('mobile-menu-icon-close') as SVGElement | null;
+
+  function setMenuOpen(open: boolean) {
+    if (!toggle || !panel || !iconOpen || !iconClose) return;
+    const view = mobileMenuView(open);
+    panel.classList.toggle('hidden', view.panelHidden);
+    toggle.setAttribute('aria-expanded', view.ariaExpanded);
+    toggle.setAttribute('aria-label', view.ariaLabel);
+    iconOpen.classList.toggle('hidden', view.iconOpenHidden);
+    iconClose.classList.toggle('hidden', view.iconCloseHidden);
+  }
+
+  toggle?.addEventListener('click', () => {
+    setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  panel?.querySelectorAll<HTMLAnchorElement>('.mobile-menu-link').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      toggle.focus();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (toggle?.getAttribute('aria-expanded') !== 'true') return;
+    if (isOutsideMenuClick(e.target as Node | null, panel, toggle)) setMenuOpen(false);
+  });
+</script>
