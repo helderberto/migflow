@@ -1,7 +1,7 @@
 name: Playbook Request
 description: Request a new migration playbook
-title: "[Request] From → To"
-labels: ["playbook-request"]
+title: '[Request] From → To'
+labels: ['playbook-request']
 body:
   - type: markdown
     attributes:
@@ -12,7 +12,7 @@ body:
     id: from
     attributes:
       label: Migrating from
-      placeholder: "e.g. Enzyme, Webpack, Moment.js"
+      placeholder: 'e.g. Enzyme, Webpack, Moment.js'
     validations:
       required: true
 
@@ -20,7 +20,7 @@ body:
     id: to
     attributes:
       label: Migrating to
-      placeholder: "e.g. React Testing Library, Vite, Day.js"
+      placeholder: 'e.g. React Testing Library, Vite, Day.js'
     validations:
       required: true
 

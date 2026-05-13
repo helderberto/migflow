@@ -1,7 +1,7 @@
 ## Migration
 
-**From:** 
-**To:** 
+**From:**
+**To:**
 **Category:** frontend / backend / data / language / infra
 
 ---

@@ -26,11 +26,11 @@ Browse the site, find your migration, copy the playbook for your AI tool of choi
 
 Three programmatic channels — all returning the same content:
 
-| Channel | Endpoint | Use case |
-|---|---|---|
-| **MCP** | `/api/mcp` | Native integration for Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client |
-| **JSON API** | `/playbooks.json`, `/playbooks/<slug>.json` | Scripts, CI, non-MCP automation |
-| **llms.txt** | `/llms.txt` | RAG indexers, ChatGPT context loaders, llmstxt.org-aware tools |
+| Channel      | Endpoint                                    | Use case                                                                                            |
+| ------------ | ------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **MCP**      | `/api/mcp`                                  | Native integration for Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible client |
+| **JSON API** | `/playbooks.json`, `/playbooks/<slug>.json` | Scripts, CI, non-MCP automation                                                                     |
+| **llms.txt** | `/llms.txt`                                 | RAG indexers, ChatGPT context loaders, llmstxt.org-aware tools                                      |
 
 See <https://migflow.dev/agents> for connection snippets and the MCP tool catalog.
 
@@ -54,13 +54,13 @@ Every playbook follows the same 9-section structure so AI agents can parse them 
 
 ## Categories
 
-| Category | Examples |
-|----------|---------|
+| Category   | Examples                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------ |
 | `frontend` | Enzyme → RTL, CRA → Vite, Cypress → Playwright, Class → Functional, Redux → RTK, Pretender → MSW |
-| `backend` | Express → Fastify |
-| `data` | Moment.js → date-fns, Lodash → native |
-| `language` | JavaScript → TypeScript, Flow → TypeScript, PropTypes → TypeScript, Callbacks → async/await |
-| `infra` | Webpack → Vite, Jest → Vitest, CommonJS → ESM |
+| `backend`  | Express → Fastify                                                                                |
+| `data`     | Moment.js → date-fns, Lodash → native                                                            |
+| `language` | JavaScript → TypeScript, Flow → TypeScript, PropTypes → TypeScript, Callbacks → async/await      |
+| `infra`    | Webpack → Vite, Jest → Vitest, CommonJS → ESM                                                    |
 
 ---
 

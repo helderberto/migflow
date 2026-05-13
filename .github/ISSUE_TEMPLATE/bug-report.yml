@@ -1,7 +1,7 @@
 name: Bug Report
 description: Report an error in a playbook or the site
-title: "[Bug] "
-labels: ["bug"]
+title: '[Bug] '
+labels: ['bug']
 body:
   - type: dropdown
     id: area
@@ -18,7 +18,7 @@ body:
     id: playbook
     attributes:
       label: Affected playbook (if applicable)
-      placeholder: "e.g. Enzyme → React Testing Library"
+      placeholder: 'e.g. Enzyme → React Testing Library'
 
   - type: textarea
     id: description
